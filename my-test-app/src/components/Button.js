@@ -2,9 +2,17 @@ import { useState } from 'react';
 
 function Button({ handleRemoveCard, handleEditCard, card, name, toggleVisibility }) {
 
-    // Create ONE state that will keep track of whether
+    // Create one state that will keep track of whether
     // a Button has been toggled, "isToggled"
     const [ isToggled, setToggled ] = useState(false);
+
+    // 💡 Wrapping other behaviors into one onClick event
+    // function someCombinedBehaviors() {
+    //     handleEditCard(card);
+    //     // ...
+    //     // ...
+    //     // ...
+    // }
 
     function toggleButton() {
 
@@ -25,7 +33,7 @@ function Button({ handleRemoveCard, handleEditCard, card, name, toggleVisibility
         );
     } else if (name === "like") {
         return (
-            // 🚧 Set handleEditCard() as onClick behavior
+            // 🚧 Set handleEditCard() as onClick event action
             // ❗ Remember to pass a function reference, not invocation
             <button className="button" onClick={() => handleEditCard(card)}>
                 { card.liked ? '❤️' : '♡' }
@@ -33,7 +41,7 @@ function Button({ handleRemoveCard, handleEditCard, card, name, toggleVisibility
         );
     } else {
         return (
-            // 🚧 Set handleRemoveCard() as onClick behavior
+            // 🚧 Set handleRemoveCard() as onClick event action
             // ❗ Remember to pass a function reference, not invocation
             <button className="button" onClick={() => handleRemoveCard(card)} >
                 🗑️

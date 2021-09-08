@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from './Button';
 
-function Card({ handleRemoveCard, handleEditCard, card, title, content="Add Some Content Here"}) {
+function Card({ handleRemoveCard, handleEditCard, card}) {
     // Create a State to handle Card info visibility
     const [ isVisible, setVisibility ] = useState(true);
 
@@ -21,16 +21,16 @@ function Card({ handleRemoveCard, handleEditCard, card, title, content="Add Some
         return (
             <>
                 <h2 className="component-name">Card Component</h2>
-                <h1>{title}</h1>
+                <h1>{card.title}</h1>
                 <ColoredLine color="black" />
-                <p>{content}</p>
+                <p>{card.content}</p>
             </>
         )
     }
 
     // Create a Callback Function to contain setVisiblity 
     function toggleVisibility() {
-      setVisibility(isVisible => !isVisible);
+      setVisibility(!isVisible);
     }
 
     return (

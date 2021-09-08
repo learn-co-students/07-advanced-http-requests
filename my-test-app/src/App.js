@@ -33,10 +33,13 @@ function App() {
   const [ cards, setCards ] = useState([]);
 
   // 🚧 Add states to manage POST (addCard), DELETE (removeCard), and PATCH (editCard)
-  // ❗ Why are these states necessary?
+  // const [ addCard, setAddCard ] = useState(false);
+  // const [ removeCard, setRemoveCard ] = useState(false);
+  // const [ editCard, setEditCard ] = useState(false);
+  
+  // 💡 Combining HTTP Request states into one
   const [ issueRequest, setIssueRequest ] = useState(false)
   
-  // ...
   
   // Use fetch to retrieve Cards from db.json and
   // set as our initial value for "cards"
@@ -52,7 +55,7 @@ function App() {
       .then(data => {
         console.log("Data fetched!", data);
         setCards(data);
-    });
+      });
   }
 
   useEffect(() => {
@@ -61,13 +64,12 @@ function App() {
     // Invoke "loadCards" via useEffect 
     loadCards();
 
-  // ❗ What states will we need to add to our dependencies array and why?
+  // ❗ What state(s) will we need to add to our dependencies array and why?
   }, [issueRequest]);
 
   function handleAddCard(newCard) {
     
     // 🚧 Refactor handleAddCard() to handle POST
-    
     fetch("http://localhost:3001/cards", {
       method: "POST",
       headers: {
@@ -75,20 +77,13 @@ function App() {
       },
       body: JSON.stringify(newCard)
     }).then(
-
-        // Comma is necessary because we are passing loadCards() and setAddCard(!addCard)
-        // as arguments to "then"
-          
-        // State change triggers App component re-render
-        // because we added "addCard" to list of 
-        // dependencies
+        // "issueRequest" state change triggers App component re-render
+        // because we added "issueRequest" to list of dependencies
         setIssueRequest(!issueRequest)
     );
   }
 
   // 🚧 Add function to handle DELETE (handleRemoveCard)
-  // ❗ Remember to invoke loadCards() and toggle "removeCard" state after successful fetch
-  
   function handleRemoveCard(card) {
       fetch(`http://localhost:3001/cards/${card.id}`, {
         method: "DELETE",
@@ -96,14 +91,12 @@ function App() {
           "Content-Type": "application/json"
       }
       }).then(
-        // ❗ Toggle "setRemoveCard" state after successful fetch
+        // ❗ Toggle "issueRequest" state after successful fetch
         setIssueRequest(!issueRequest)
     );
   }
 
   // 🚧 Add function to handle PATCH (handleEditCard)
-  // ❗ Remember to toggle "issueRequest" after successful fetch
-  
     function handleEditCard(card) {
       fetch(`http://localhost:3001/cards/${card.id}`, {
         method: "PATCH",
@@ -114,8 +107,8 @@ function App() {
           liked: !card.liked
         })
       }).then(
-          // ❗ Toggle "issueRequest" state after successful fetch   
-          setIssueRequest(!issueRequest)
+        // ❗ Toggle "issueRequest" state after successful fetch   
+        setIssueRequest(!issueRequest)
      );
     }
 
