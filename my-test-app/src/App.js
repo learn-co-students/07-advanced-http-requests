@@ -34,8 +34,8 @@ function App() {
 
   // 🚧 Add states to manage POST (addCard), DELETE (removeCard), and PATCH (editCard)
   // ❗ Why are these states necessary?
-  const [ addCard, setAddCard ] = useState(false)
-  // ...
+  const [ issueRequest, setIssueRequest ] = useState(false)
+  
   // ...
   
   // Use fetch to retrieve Cards from db.json and
@@ -59,10 +59,10 @@ function App() {
     console.log("Fetching data...");
     
     // Invoke "loadCards" via useEffect 
-    loadCards(); 
+    loadCards();
 
   // ❗ What states will we need to add to our dependencies array and why?
-  }, [addCard]);
+  }, [issueRequest]);
 
   function handleAddCard(newCard) {
     
@@ -78,29 +78,28 @@ function App() {
 
         // Comma is necessary because we are passing loadCards() and setAddCard(!addCard)
         // as arguments to "then"
-        loadCards(),
           
         // State change triggers App component re-render
         // because we added "addCard" to list of 
         // dependencies
-        setAddCard(!addCard)
+        setIssueRequest(!issueRequest)
     );
   }
 
   // 🚧 Add function to handle DELETE (handleRemoveCard)
   // ❗ Remember to invoke loadCards() and toggle "removeCard" state after successful fetch
   
-  // function handleRemoveCard(card) {
-  //    fetch(`http://localhost:3001/cards/${❓}`, {
-  //      method: "❓",
-  //      headers: {
-  //        "Content-Type": "application/json"
-  //    }
-  //   }).then(
-  //     ❗ Remember to invoke loadCards() and toggle "addCard" state after successful fetch   
-  //   })
-  //  );
-  // }
+  function handleRemoveCard(card) {
+      fetch(`http://localhost:3001/cards/${card.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+      }
+      }).then(
+        // ❗ Toggle "setRemoveCard" state after successful fetch
+        setIssueRequest(!issueRequest)
+    );
+  }
 
   // 🚧 Add function to handle PATCH (handleEditCard)
   // ❗ Remember to invoke loadCards() and toggle "editCard" after successful fetch
@@ -140,7 +139,8 @@ function App() {
       <CardList 
         cards={cards}
 
-        // 🚧 Pass handleRemoveCard() and handleEditCard as props
+        // 🚧 Pass handleRemoveCard() and handleEditCard() as props
+        handleRemoveCard={handleRemoveCard}
       />
     </div>
   );

@@ -19,6 +19,7 @@ function CardList({ cards, handleRemoveCard, handleEditCard }) {
                         content={card.content} 
 
                         // 🚧 Pass handleRemoveCard() and handleEditCard as props
+                        handleRemoveCard={handleRemoveCard}
                     />
                 );
             })}

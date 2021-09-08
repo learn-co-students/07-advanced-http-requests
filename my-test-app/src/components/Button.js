@@ -35,7 +35,7 @@ function Button({ handleRemoveCard, handleEditCard, card, name, toggleVisibility
         return (
             // 🚧 Set handleRemoveCard() as onClick behavior
             // ❗ Remember to pass a function reference, not invocation
-            <button className="button">
+            <button className="button" onClick={() => handleRemoveCard(card)} >
                 🗑️
             </button>
         );
