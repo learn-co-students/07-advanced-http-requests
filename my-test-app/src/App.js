@@ -32,9 +32,9 @@ function App() {
   // Set "cards" state + setter function
   const [ cards, setCards ] = useState([]);
 
-  // 🚧 Add states to manage POST (addCard), PATCH (removeCard), and DELETE (editCard)
+  // 🚧 Add states to manage POST (addCard), DELETE (removeCard), and PATCH (editCard)
   // ❗ Why are these states necessary?
-  // ...
+  const [ addCard, setAddCard ] = useState(false)
   // ...
   // ...
   
@@ -42,7 +42,10 @@ function App() {
   // set as our initial value for "cards"
   function loadCards() {
     fetch("http://localhost:3001/cards")
+      
+      // Returns a promise which resolves with the result of parsing the body text as JSON
       .then(res => res.json())
+      
       .then(data => {
         console.log("Data fetched!", data);
         setCards(data);
@@ -56,27 +59,31 @@ function App() {
     loadCards(); 
 
   // ❗ What states will we need to add to our dependencies array and why?
-  }, []);
+  }, [addCard]);
 
   function handleAddCard(newCard) {
     
     // 🚧 Refactor handleAddCard() to handle POST
     
-    // fetch("http://localhost:3001/cards", {
-    //   method: "❓",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify(❓)
-    // }).then(
-    //      ❗ Remember to invoke loadCards() and toggle "addCard" state after successful fetch   
-    // })
-
-    // Avoid direct state mutation by using the Spread Operator
-    const newCardsArray = [...cards, newCard]
-    
-    // Pass new array to "setState."
-    setCards(newCardsArray)
+    fetch("http://localhost:3001/cards", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newCard)
+    }).then(
+        fetch("http://localhost:3001/cards")
+        .then(res => res.json())
+        .then(data => {
+          console.log("Data fetched!", data);
+          setCards(data);
+          
+          // State change triggers App component re-render
+          // because we added "addCard" to list of 
+          // dependencies
+          setAddCard(!addCard);
+      })
+    );
   }
 
   // 🚧 Add function to handle DELETE (handleRemoveCard)
