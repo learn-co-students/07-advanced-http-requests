@@ -16,16 +16,6 @@
       "id": 3,
       "title": "Third Card",
       "liked": false
-    },
-    {
-      "id": 4,
-      "title": "Test",
-      "content": "Test"
-    },
-    {
-      "id": 5,
-      "title": "Working",
-      "content": "Please"
     }
   ]
 }

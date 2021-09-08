@@ -44,8 +44,11 @@ function App() {
     fetch("http://localhost:3001/cards")
       
       // Returns a promise which resolves with the result of parsing the body text as JSON
+      // "res.json" parses JSON response into native JavaScript objects
       .then(res => res.json())
       
+      // data => JSON data parsed by "res.json()" call
+      // We can see "data" logged in our console
       .then(data => {
         console.log("Data fetched!", data);
         setCards(data);
@@ -72,12 +75,15 @@ function App() {
       },
       body: JSON.stringify(newCard)
     }).then(
+
+        // Comma is necessary because we are passing loadCards() and setAddCard(!addCard)
+        // as arguments to "then"
         loadCards(),
           
-          // State change triggers App component re-render
-          // because we added "addCard" to list of 
-          // dependencies
-          setAddCard(!addCard)
+        // State change triggers App component re-render
+        // because we added "addCard" to list of 
+        // dependencies
+        setAddCard(!addCard)
     );
   }
 
