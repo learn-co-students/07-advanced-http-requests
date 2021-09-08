@@ -114,7 +114,7 @@ function App() {
     //       liked: ❓
     //     })
     //   }).then(
-    //       ❗ Remember to invoke loadCards() and toggle "editCard" state after successful fetch   
+    //       ❗ Toggle "issueRequest" state after successful fetch   
     //   })
     //  );
     // }
