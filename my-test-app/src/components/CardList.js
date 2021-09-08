@@ -20,6 +20,7 @@ function CardList({ cards, handleRemoveCard, handleEditCard }) {
 
                         // 🚧 Pass handleRemoveCard() and handleEditCard as props
                         handleRemoveCard={handleRemoveCard}
+                        handleEditCard={handleEditCard}
                     />
                 );
             })}

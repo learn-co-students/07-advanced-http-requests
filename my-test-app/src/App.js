@@ -102,22 +102,22 @@ function App() {
   }
 
   // 🚧 Add function to handle PATCH (handleEditCard)
-  // ❗ Remember to invoke loadCards() and toggle "editCard" after successful fetch
+  // ❗ Remember to toggle "issueRequest" after successful fetch
   
-    // function handleEditCard(card) {
-    //   fetch(`http://localhost:3001/cards/${❓}`, {
-    //     method: "❓",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //       liked: ❓
-    //     })
-    //   }).then(
-    //       ❗ Toggle "issueRequest" state after successful fetch   
-    //   })
-    //  );
-    // }
+    function handleEditCard(card) {
+      fetch(`http://localhost:3001/cards/${card.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          liked: !card.liked
+        })
+      }).then(
+          // ❗ Toggle "issueRequest" state after successful fetch   
+          setIssueRequest(!issueRequest)
+     );
+    }
 
   return (
     <div className="App">
@@ -141,6 +141,7 @@ function App() {
 
         // 🚧 Pass handleRemoveCard() and handleEditCard() as props
         handleRemoveCard={handleRemoveCard}
+        handleEditCard={handleEditCard}
       />
     </div>
   );

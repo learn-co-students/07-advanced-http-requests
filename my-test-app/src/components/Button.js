@@ -27,8 +27,8 @@ function Button({ handleRemoveCard, handleEditCard, card, name, toggleVisibility
         return (
             // 🚧 Set handleEditCard() as onClick behavior
             // ❗ Remember to pass a function reference, not invocation
-            <button className="button" onClick={toggleButton}>
-                { isToggled ? '❤️' : '♡' }
+            <button className="button" onClick={() => handleEditCard(card)}>
+                { card.liked ? '❤️' : '♡' }
             </button>
         );
     } else {
