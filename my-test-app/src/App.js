@@ -72,17 +72,12 @@ function App() {
       },
       body: JSON.stringify(newCard)
     }).then(
-        fetch("http://localhost:3001/cards")
-        .then(res => res.json())
-        .then(data => {
-          console.log("Data fetched!", data);
-          setCards(data);
+        loadCards(),
           
           // State change triggers App component re-render
           // because we added "addCard" to list of 
           // dependencies
-          setAddCard(!addCard);
-      })
+          setAddCard(!addCard)
     );
   }
 
